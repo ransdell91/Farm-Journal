@@ -1,0 +1,19 @@
+FARM JOURNAL PHONE APP - SETUP
+
+1. Put this folder online (free):
+   GitHub Pages: create a repository, upload every file in this folder
+   (keep the icons folder), then Settings > Pages > Deploy from branch > main > Save.
+   Or Netlify Drop: drag this folder onto app.netlify.com/drop and create a free account to keep the site.
+
+2. On your Android phone, open the site address in Chrome.
+   Tap the three-dot menu > "Add to Home screen" (or "Install app") > Install.
+
+3. Open Farm Journal from your home screen. It works offline after the first open.
+
+UPDATING
+Replace journal.html or plan.html with new versions, and change VERSION in sw.js
+(for example farm-journal-v2) so phones pick up the change. Your entries are not affected.
+
+YOUR DATA
+Entries are saved on the phone, not on the website. Use Export backup regularly.
+Uninstalling the app or clearing Chrome's site data deletes entries that haven't been exported.
