@@ -1,13 +1,13 @@
 {
   "name": "Farm Journal",
   "short_name": "Farm Journal",
-  "description": "Humboldt Farms journal and FSA Groundwork Plan",
+  "description": "Humboldt Farms daily journal with the FSA Groundwork Plan",
   "start_url": "./journal.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#EEF1EC",
-  "theme_color": "#2F5A45",
+  "background_color": "#E9EEEA",
+  "theme_color": "#1F4D38",
   "icons": [
     {
       "src": "icons/icon-192.png",
@@ -30,12 +30,12 @@
   ],
   "shortcuts": [
     {
-      "name": "Journal",
-      "url": "./journal.html"
+      "name": "Today",
+      "url": "./journal.html#today"
     },
     {
-      "name": "Groundwork Plan",
-      "url": "./plan.html"
+      "name": "Progress",
+      "url": "./journal.html#progress"
     }
   ]
 }
