@@ -58,7 +58,12 @@ h1,h2,h3{margin:0;text-wrap:balance}
 main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px));max-width:620px;margin:0 auto}
 .view{display:grid;gap:14px;animation:fade .18s ease-out}
 @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.view{animation:none}}
+.view.from-right{animation:fromR .22s ease-out}
+.view.from-left{animation:fromL .22s ease-out}
+@keyframes fromR{from{opacity:.3;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes fromL{from{opacity:.3;transform:translateX(-40px)}to{opacity:1;transform:none}}
+.swipehint{text-align:center;font-size:12px;color:var(--muted);margin:-4px 0 0}
+@media (prefers-reduced-motion:reduce){.view,.view.from-right,.view.from-left{animation:none}}
 .card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:16px;min-width:0}
 .sect{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:6px 2px -4px}
 .sect h3{font:700 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -231,7 +236,108 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
 .badge.na{background:var(--surface-2);color:var(--muted)}
 .badge.miss{background:transparent;border:1px solid var(--miss)}
 
-.toast{position:fixed;left:50%;bottom:calc(var(--tabh) + 20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:600;z-index:40;box-shadow:var(--shadow);max-width:calc(100vw - 32px)}
+/* Banners */
+.banners{display:grid;gap:8px}
+.banners:empty{display:none}
+.banner{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;font-size:14px;background:var(--yolk-soft);color:var(--yolk-ink)}
+.banner.warn{background:#FBE3DE;color:#6E2216}
+.banner .bi{font-size:18px;line-height:1}
+.banner b{display:block;font-size:14px}
+.banner span{font-size:13px;opacity:.9}
+.banner button{font-weight:700;font-size:13px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.65);color:inherit;white-space:nowrap}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .banner.warn{background:#4A221B;color:#F7C9BF}}
+:root[data-theme="dark"] .banner.warn{background:#4A221B;color:#F7C9BF}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Flock */
+.flocktop{display:grid;gap:12px}
+.flocktop .chiprow{gap:6px}
+.birds{font:600 34px/1 var(--f-mono);font-variant-numeric:tabular-nums}
+.birds small{display:block;font:600 12px var(--f-body);color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+.chiprow{display:flex;flex-wrap:wrap;gap:6px}
+.pillbtn{font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:var(--surface);color:var(--accent)}
+.evlist{display:grid;gap:6px;margin-top:12px}
+.ev{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;background:var(--surface-2);font-size:14px}
+.ev .amt{font:600 14px var(--f-mono);white-space:nowrap}
+.ev .amt.pos{color:var(--done)} .ev .amt.neg{color:var(--danger)}
+.ev .what{min-width:0}
+.ev .what small{display:block;color:var(--muted);font-size:12px}
+.ev .x{width:30px;height:30px;border-radius:50%;color:var(--muted);font-size:18px;line-height:1}
+.ev.hold{background:#FBE3DE;color:#6E2216}
+.miniform{display:grid;gap:8px;margin-top:12px;padding:12px;border-radius:12px;background:var(--surface-2)}
+.miniform .row{display:flex;flex-wrap:wrap;gap:8px}
+.miniform input,.miniform select{flex:1 1 120px;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 10px;font-size:14.5px}
+.miniform .ttl{font-weight:700;font-size:14px}
+.kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--surface);border-radius:10px;padding:3px}
+.kinds button{padding:7px;border-radius:8px;font-weight:600;font-size:13.5px;color:var(--muted)}
+.kinds button[aria-pressed="true"]{background:var(--done-soft);color:var(--ink)}
+
+/* Eggs */
+.eggtop{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px;align-items:end}
+.layrate{text-align:right;font-size:13px;color:var(--muted)}
+.layrate b{display:block;font:600 22px var(--f-mono);color:var(--ink)}
+.minis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.mini{background:var(--surface-2);border-radius:12px;padding:8px;display:grid;gap:4px}
+.mini label{font-size:11.5px;font-weight:600;color:var(--muted)}
+.stepper input{width:100%;min-width:0;border:none;background:transparent;font:600 22px var(--f-mono);text-align:center;padding:2px 0;font-variant-numeric:tabular-nums;color:var(--ink)}
+.stepper.sm{grid-template-columns:30px minmax(0,1fr) 30px}
+.stepper.sm button{width:30px;height:30px;font-size:17px;background:var(--surface)}
+.stepper.sm input{font-size:17px}
+
+/* Money */
+.mtot{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);margin-top:10px}
+.mtot b{color:var(--ink);font-family:var(--f-mono);font-weight:600}
+
+/* Supplies */
+.inv{display:grid;gap:8px;padding:12px 0;border-top:1px solid var(--line)}
+.inv:first-child{border-top:none;padding-top:4px}
+.inv .ih{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.inv .ih b{font-size:15px}
+.inv .lvl{font:600 15px var(--f-mono);white-space:nowrap}
+.inv .meta{font-size:12.5px;color:var(--muted)}
+.inv .meta.low{color:var(--danger);font-weight:600}
+.bar{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--done)}
+.bar i.low{background:var(--danger)}
+
+/* FSA summary */
+.fsagrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.fsagrid div{display:grid}
+.fsagrid b{font:600 20px var(--f-mono)}
+.fsagrid span{font-size:12px;color:var(--muted);font-weight:600}
+
+/* Receipts */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.rthumb{aspect-ratio:3/4;max-width:100%;border-radius:10px;overflow:hidden;background:var(--surface-2);position:relative;display:block;width:100%}
+.rthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.rthumb .lbl{position:absolute;left:0;right:0;bottom:0;padding:14px 6px 5px;font-size:11px;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65));text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.radd{aspect-ratio:3/4;max-width:100%;border-radius:10px;border:2px dashed var(--miss);display:grid;place-items:center;align-content:center;gap:4px;color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;width:100%}
+.radd svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.radd.busy{color:var(--muted);cursor:progress}
+.rnote{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.viewer{position:fixed;inset:0;z-index:60;background:rgba(8,12,10,.94);display:grid;grid-template-rows:auto minmax(0,1fr) auto;color:#EEF3EF;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.viewer .vtop{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px}
+.viewer .vtop b{font:600 14px var(--f-body)}
+.viewer .vclose{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;color:#fff}
+.viewer .vclose svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.viewer .vimg{display:grid;place-items:center;padding:0 12px;min-height:0}
+.viewer .vimg img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px}
+.viewer .vbot{display:grid;gap:10px;padding:12px 16px 16px}
+.viewer .vbot input{width:100%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:10px;padding:10px 12px;font-size:15px}
+.viewer .vbot input::placeholder{color:rgba(255,255,255,.55)}
+.viewer .vrow{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.viewer .vdel{color:#F2A091;font-weight:600;font-size:14px;padding:8px 4px}
+.viewer .vnav{display:flex;gap:6px}
+.viewer .vnav button{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:18px}
+.rlist{display:grid;gap:10px}
+.rday{display:grid;gap:8px}
+.rday .d{display:flex;justify-content:space-between;font:600 12px var(--f-mono);color:var(--muted)}
+.rday .rgrid{grid-template-columns:repeat(auto-fill,minmax(70px,1fr))}
+.cday .marks .rc{background:var(--accent);border-radius:1px;width:5px;height:7px}
+.chkline{display:flex;align-items:center;gap:8px;font-size:13.5px;margin-top:10px}
+.chkline input{width:18px;height:18px;accent-color:var(--accent)}
+
+.toast{position:fixed;left:50%;bottom:calc(var(--tabh) + 20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:600;z-index:70;box-shadow:var(--shadow);max-width:calc(100vw - 32px)}
 @media (min-width:960px){.toast{bottom:24px}}
 </style>
 
@@ -258,6 +364,8 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
       <div class="bigring" id="bigRing"><div><span><b id="ringNum"></b><small id="ringLbl"></small></span></div></div>
     </div>
     <button class="backtoday" id="backToday" type="button" hidden>← Back to today</button>
+    <p class="swipehint" id="swipeHint">Swipe left or right to change the day</p>
+    <div id="banners" class="banners"></div>
 
     <div id="planWrap">
       <div class="sect"><h3>FSA plan task</h3></div>
@@ -267,12 +375,35 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
     <div class="sect"><h3>Checklist</h3><button class="tlink" id="restNA" type="button">Mark rest not needed</button></div>
     <div class="card tasks" id="checklist" style="padding:4px 0"></div>
 
-    <div class="sect"><h3>Numbers</h3></div>
-    <div class="nums">
-      <div class="card num"><label for="fEggs">Eggs</label><div class="stepper"><button type="button" data-step="fEggs:-1" aria-label="One fewer egg">−</button><input id="fEggs" type="number" inputmode="numeric" min="0" step="1" placeholder="0"><button type="button" data-step="fEggs:1" aria-label="One more egg">+</button></div></div>
-      <div class="card num"><label for="fHours">Hours</label><div class="stepper"><button type="button" data-step="fHours:-0.25" aria-label="Quarter hour less">−</button><input id="fHours" type="number" inputmode="decimal" min="0" step="0.25" placeholder="0"><button type="button" data-step="fHours:0.25" aria-label="Quarter hour more">+</button></div></div>
-      <div class="card num"><label for="fSpent">Spent</label><div class="money"><span>$</span><input id="fSpent" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00"></div></div>
-      <div class="card num"><label for="fEarned">Earned</label><div class="money"><span>$</span><input id="fEarned" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00"></div></div>
+    <div class="sect"><h3>Flock</h3><span class="small" id="flockSub"></span></div>
+    <div class="card" id="flockCard"></div>
+
+    <div class="sect"><h3>Eggs</h3><span class="small" id="eggStock"></span></div>
+    <div class="card eggcard">
+      <div class="eggtop">
+        <div class="num" style="padding:0"><label for="fEggs">Collected</label><div class="stepper"><button type="button" data-step="fEggs:-1" aria-label="One fewer egg">−</button><input id="fEggs" type="number" inputmode="numeric" min="0" step="1" placeholder="0"><button type="button" data-step="fEggs:1" aria-label="One more egg">+</button></div></div>
+        <div class="layrate" id="layRate"></div>
+      </div>
+      <p class="small" style="margin:12px 0 6px;font-weight:600">Where they went</p>
+      <div class="minis">
+        <div class="mini"><label for="fSold">Sold</label><div class="stepper sm"><button type="button" data-step="fSold:-1" aria-label="One fewer sold">−</button><input id="fSold" type="number" inputmode="numeric" min="0" step="1" placeholder="0"><button type="button" data-step="fSold:1" aria-label="One more sold">+</button></div></div>
+        <div class="mini"><label for="fTraded">Traded</label><div class="stepper sm"><button type="button" data-step="fTraded:-1" aria-label="One fewer traded">−</button><input id="fTraded" type="number" inputmode="numeric" min="0" step="1" placeholder="0"><button type="button" data-step="fTraded:1" aria-label="One more traded">+</button></div></div>
+        <div class="mini"><label for="fUsed">Eaten / kept</label><div class="stepper sm"><button type="button" data-step="fUsed:-1" aria-label="One fewer eaten">−</button><input id="fUsed" type="number" inputmode="numeric" min="0" step="1" placeholder="0"><button type="button" data-step="fUsed:1" aria-label="One more eaten">+</button></div></div>
+        <div class="mini"><label for="fLost">Cracked / tossed</label><div class="stepper sm"><button type="button" data-step="fLost:-1" aria-label="One fewer lost">−</button><input id="fLost" type="number" inputmode="numeric" min="0" step="1" placeholder="0"><button type="button" data-step="fLost:1" aria-label="One more lost">+</button></div></div>
+      </div>
+    </div>
+
+    <div class="sect"><h3>Hours</h3></div>
+    <div class="card num"><label for="fHours" class="sr">Hours worked</label><div class="stepper"><button type="button" data-step="fHours:-0.25" aria-label="Quarter hour less">−</button><input id="fHours" type="number" inputmode="decimal" min="0" step="0.25" placeholder="0"><button type="button" data-step="fHours:0.25" aria-label="Quarter hour more">+</button></div></div>
+
+    <div class="sect"><h3>Money</h3><span class="small" id="moneySub"></span></div>
+    <div class="card" id="moneyCard"></div>
+
+    <div class="sect"><h3>Receipts</h3><span class="small" id="rCount"></span></div>
+    <div class="card">
+      <div class="rgrid" id="rgrid"></div>
+      <input id="rFile" type="file" accept="image/*" multiple hidden>
+      <p class="rnote" id="rNote">Tap a photo to view it, label it, or delete it.</p>
     </div>
 
     <div class="sect"><h3>Notes</h3></div>
@@ -297,10 +428,11 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
         <span><i style="background:var(--part-soft);box-shadow:inset 0 0 0 1px var(--done-soft)"></i>Some done</span>
         <span><i style="background:var(--yolk);border-radius:50%;width:7px;height:7px"></i>Plan task</span>
         <span><i style="background:var(--muted);border-radius:50%;width:7px;height:7px"></i>Has notes</span>
+        <span><i style="background:var(--accent);border-radius:1px;width:5px;height:7px"></i>Has receipts</span>
         <span><span style="color:var(--yolk)">★</span> Worth remembering</span>
       </div>
     </div>
-    <p class="small" style="text-align:center">Tap a day to open it.</p>
+    <p class="small" style="text-align:center">Tap a day to open it. Swipe to change the month.</p>
   </section>
 
   <!-- PROGRESS -->
@@ -311,6 +443,7 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
       <button class="wkbtn" id="pNext" type="button" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
     </div>
     <div class="tiles" id="tiles"></div>
+    <div class="card" id="moneyMonth"></div>
     <div class="sect"><h3>Keeping up</h3></div>
     <div class="card">
       <p class="small" style="margin-bottom:12px">Each square is a day. Percentages count only the days a task was needed.</p>
@@ -322,13 +455,16 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
         <span><i style="border:1px dashed var(--miss)"></i>Upcoming</span>
       </div>
     </div>
+    <div class="sect"><h3>FSA experience summary</h3><span class="small">All time</span></div>
+    <div class="card" id="fsaCard"></div>
   </section>
 
   <!-- NOTES -->
   <section class="view" id="v-notes" aria-label="Notes" hidden>
-    <div class="seg" role="group" aria-label="Which notes">
-      <button type="button" id="segStar" aria-pressed="true">Worth remembering</button>
+    <div class="seg" role="group" aria-label="Which notes" style="grid-template-columns:1fr 1fr 1fr">
+      <button type="button" id="segStar" aria-pressed="true">Starred</button>
       <button type="button" id="segAll" aria-pressed="false">All notes</button>
+      <button type="button" id="segRc" aria-pressed="false">Receipts</button>
     </div>
     <input class="search" id="q" type="search" placeholder="Search notes" aria-label="Search notes">
     <div class="nlist" id="nlist"></div>
@@ -352,6 +488,25 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
       </form>
     </div>
 
+    <div class="card mcard" id="suppliesCard">
+      <h3>Supplies on hand</h3>
+      <p class="small">Log what you buy and count what's left now and then. After two counts the app knows how fast you use each item and warns you before you run out.</p>
+      <div id="invList" style="margin-top:8px"></div>
+      <details class="phase" style="margin-top:6px">
+        <summary>Edit supply items<span></span></summary>
+        <div id="invEdit" style="margin-top:8px"></div>
+        <form class="addform" id="invAdd" autocomplete="off">
+          <label for="invName" class="small" style="font-weight:600">Add an item</label>
+          <div class="sched">
+            <input id="invName" placeholder="e.g. Oyster shell" aria-label="Item name">
+            <input id="invUnit" placeholder="Unit, e.g. lb" aria-label="Unit">
+            <input id="invLow" type="number" min="0" step="any" placeholder="Warn at" aria-label="Warn when at or below">
+          </div>
+          <div><button class="btn primary" type="submit">Add item</button></div>
+        </form>
+      </details>
+    </div>
+
     <div class="card mcard">
       <h3>FSA Groundwork Plan</h3>
       <p class="small">Every plan task through the start of spring classes. Tap one to open that day.</p>
@@ -366,6 +521,7 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
         <button class="btn" type="button" id="expCsv">Export spreadsheet</button>
         <label class="btn" for="impFile" style="cursor:pointer">Import backup<input id="impFile" type="file" accept=".json,application/json" hidden></label>
       </div>
+      <label class="chkline" for="bkPhotos"><input id="bkPhotos" type="checkbox" checked> Include receipt photos in the backup</label>
       <p class="small" id="bkMsg" role="status" style="margin-top:10px"></p>
       <p class="small" style="margin-top:6px">Importing never deletes anything. Days you don't have are added; when both copies have a day, the one saved most recently wins.</p>
     </div>
@@ -385,6 +541,17 @@ main{padding:16px 16px calc(var(--tabh) + 28px + env(safe-area-inset-bottom,0px)
   <button class="tab" type="button" data-view="more"><span class="pill"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg></span>More</button>
 </nav>
 <div class="toast" id="toast" role="status" hidden></div>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Receipt photo" hidden>
+  <div class="vtop"><b id="vTitle"></b><button class="vclose" id="vClose" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="vimg"><img id="vImg" alt="Receipt photo"></div>
+  <div class="vbot">
+    <input id="vLabel" placeholder="What's this for? e.g. Feed store, $32" aria-label="Receipt label">
+    <div class="vrow">
+      <button class="vdel" id="vDel" type="button">Delete photo</button>
+      <div class="vnav"><button type="button" id="vPrev" aria-label="Previous photo">‹</button><button type="button" id="vNext" aria-label="Next photo">›</button></div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ---------- Plan tasks from the FSA Groundwork Plan: [date, tag, title, detail, key] ----------
@@ -515,13 +682,22 @@ const PHASES = [
   {name:"Phase 4 · Ready for class", from:"2026-12-28", to:"2027-01-17"}
 ];
 const DEFAULT_ITEMS = [
-  {id:"feed",   label:"Birds fed & watered",      from:"2026-10-07", to:null},
-  {id:"eggs",   label:"Eggs collected & counted", from:"2026-10-07", to:null},
-  {id:"health", label:"Flock health check",       from:"2026-10-07", to:null},
+  {id:"feed",   label:"Birds fed & watered",      from:"2026-11-03", to:null},
+  {id:"eggs",   label:"Eggs collected & counted", from:"2026-11-03", to:null},
+  {id:"health", label:"Flock health check",       from:"2026-11-03", to:null},
   {id:"garden", label:"Garden beds checked",      from:"2026-10-07", to:null},
   {id:"learn",  label:"20 minutes of learning",   from:"2026-10-07", to:null},
   {id:"coop",   label:"Clean the coop & change bedding", freq:"weekly", dow:6, from:"2026-11-03", to:null}
 ];
+const DEFAULT_INV = [
+  {id:"feed",    name:"Feed",        unit:"lb",      low:10, cat:"Feed"},
+  {id:"bedding", name:"Bedding",     unit:"bags",    low:1,  cat:"Bedding"},
+  {id:"cartons", name:"Egg cartons", unit:"cartons", low:6,  cat:"Packaging"}
+];
+const EXP_CATS=["Feed","Bedding","Birds","Supplies & tools","Building materials","Packaging","Fees & permits","Education","Vehicle & mileage","Other expense"];
+const INC_CATS=["Eggs","Produce","Birds","Other income"];
+const ADD_REASONS=["Bought","Hatched","Given to us","Other"];
+const LOSS_REASONS=["Died","Predator","Culled","Sold","Given away","Other"];
 
 // ---------- Helpers ----------
 const $ = id => document.getElementById(id);
@@ -542,6 +718,7 @@ const CHECK_SVG='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></sv
 // ---------- State ----------
 let days = {};
 let items = DEFAULT_ITEMS.map(x=>({...x}));
+let inv = DEFAULT_INV.map(x=>({...x}));
 let sel = today < "2026-10-07" ? "2026-10-07" : today;
 let calMonth = new Date(parse(sel).getFullYear(), parse(sel).getMonth(), 1);
 let progMonth = new Date(calMonth);
@@ -565,15 +742,15 @@ function dayStatus(date){
   itemsOn(date).forEach(it=>{ total++; if(c[it.id]==="done") done++; else if(c[it.id]==="na") na++; });
   if(PLANMAP[date]){ total++; if(r.plan==="done") done++; else if(r.plan==="na") na++; }
   const need = total - na;
-  return {total, done, na, need, touched: done+na>0 || num(r.hours)!=null || num(r.eggs)!=null || num(r.spent)!=null || num(r.earned)!=null || !!r.notes};
+  return {total, done, na, need, touched: done+na>0 || num(r.hours)!=null || num(r.eggs)!=null || num(r.spent)!=null || num(r.earned)!=null || !!r.notes || ['receipts','flock','money','treat','stock'].some(k=>Array.isArray(r[k])&&r[k].length>0) || ['eggsSold','eggsTraded','eggsUsed','eggsLost'].some(k=>num(r[k])!=null)};
 }
 const pctOf = s => s.need>0 ? Math.round(s.done/s.need*100) : (s.na>0?100:0);
 
 // ---------- Storage ----------
 const LS="farm-journal-v2";
 function lsRead(){ try{ return JSON.parse(localStorage.getItem(LS)||"null"); }catch(e){ return null; } }
-function lsWrite(){ try{ localStorage.setItem(LS, JSON.stringify({days, items})); }catch(e){} }
-const localStore = { async saveDay(){ lsWrite(); }, async saveItems(){ lsWrite(); } };
+function lsWrite(){ try{ localStorage.setItem(LS, JSON.stringify({days, items, inv})); }catch(e){} }
+const localStore = { async saveDay(){ lsWrite(); }, async saveItems(){ lsWrite(); }, async saveInv(){ lsWrite(); } };
 function mergeOldEntry(e){
   if(!e || !/^\d{4}-\d{2}-\d{2}$/.test(String(e.date||""))) return false;
   const r = {...rec(e.date)};
@@ -700,8 +877,9 @@ function renderToday(){
   if(!list.length){ const e=document.createElement("p"); e.className="emptyrow"; e.textContent="No checklist tasks on this day."; box.appendChild(e); }
   $("restNA").hidden = !list.length && !p;
   const set=(id,v)=>{ if(document.activeElement!==$(id)) $(id).value = v ?? ""; };
-  set("fHours",r.hours); set("fEggs",r.eggs); set("fSpent",r.spent); set("fEarned",r.earned); set("fNotes",r.notes);
+  set("fHours",r.hours); set("fEggs",r.eggs); set("fSold",r.eggsSold); set("fTraded",r.eggsTraded); set("fUsed",r.eggsUsed); set("fLost",r.eggsLost); set("fNotes",r.notes);
   $("starBtn").setAttribute("aria-pressed",String(!!r.star));
+  renderReceipts(); renderFlock(); renderEggs(); renderMoney(); renderBanners();
 }
 $("backToday").onclick=()=>{ flushFields(); sel=today; go("today"); };
 $("wkPrev").onclick=()=>{ flushFields(); sel=addDays(sel,-7); renderToday(); $("screenTitle").textContent = sel===today?"Today":fShort.format(parse(sel)); };
@@ -717,20 +895,274 @@ $("starBtn").onclick=()=>{ const v=!rec(sel).star; touchDay(sel,{star:v}); rende
 const timers={};
 function bindField(id,key,conv){
   const el=$(id);
-  const commit=()=>{ clearTimeout(timers[id]); timers[id]=null; const v=conv(el.value); if((rec(sel)[key]??null)!==v){ touchDay(sel,{[key]:v}); renderWeek(); } };
+  const commit=()=>{ clearTimeout(timers[id]); timers[id]=null; const v=conv(el.value); if((rec(sel)[key]??null)!==v){ touchDay(sel,{[key]:v}); renderWeek(); if(key.startsWith('egg')){ renderEggs(); renderBanners(); } } };
   el.addEventListener("input",()=>{ clearTimeout(timers[id]); timers[id]=setTimeout(commit,900); });
   el.addEventListener("change",commit); el.addEventListener("blur",commit);
   el._commit=commit;
 }
-bindField("fHours","hours",num); bindField("fEggs","eggs",num); bindField("fSpent","spent",num); bindField("fEarned","earned",num);
+bindField("fHours","hours",num); bindField("fEggs","eggs",num); bindField("fSold","eggsSold",num); bindField("fTraded","eggsTraded",num); bindField("fUsed","eggsUsed",num); bindField("fLost","eggsLost",num);
 bindField("fNotes","notes",v=>v.trim()?v:null);
-function flushFields(){ ["fHours","fEggs","fSpent","fEarned","fNotes"].forEach(id=>{ if(timers[id]) $(id)._commit(); }); }
+const FIELD_IDS=["fHours","fEggs","fSold","fTraded","fUsed","fLost","fNotes"];
+function flushFields(){ FIELD_IDS.forEach(id=>{ if(timers[id]) $(id)._commit(); }); }
 document.querySelectorAll("[data-step]").forEach(b=>b.onclick=()=>{
   const [id,stepS]=b.dataset.step.split(":"), step=+stepS, el=$(id);
   const v=Math.max(0, Math.round(((num(el.value)||0)+step)*100)/100);
   el.value = v===0 && step<0 && num(el.value)==null ? "" : v;
   el._commit();
 });
+
+// ---------- Shared helpers for flock, eggs, money, supplies ----------
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const arr = (d,k) => Array.isArray(rec(d)[k]) ? rec(d)[k] : [];
+const sortedDays = () => Object.keys(days).sort();
+const uid = p => p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const daysBetween = (a,b) => Math.round((parse(b)-parse(a))/864e5);
+function birdsOn(date){ let n=0; for(const d of sortedDays()){ if(d>date) break; for(const e of arr(d,"flock")) n+=(+e.n||0); } return Math.max(0,n); }
+function hasFlockHistory(){ return sortedDays().some(d=>arr(d,"flock").length); }
+function eggsOnHand(date){ let n=0; for(const d of sortedDays()){ if(d>date) break; const r=days[d]; n+=(num(r.eggs)||0)-(num(r.eggsSold)||0)-(num(r.eggsTraded)||0)-(num(r.eggsUsed)||0)-(num(r.eggsLost)||0); if(n<0) n=0; } return n; }
+function holdsOn(date){ const out=[]; for(const d of sortedDays()){ if(d>date) break; for(const t of arr(d,"treat")){ const until=addDays(d,+t.days||0); if((+t.days||0)>0 && date<until) out.push({...t,from:d,until}); } } return out; }
+function moneyLines(d){ const r=rec(d); if(Array.isArray(r.money)) return r.money; const out=[]; if(num(r.spent)) out.push({id:"legacy-s",kind:"expense",cat:"Other expense",amt:+r.spent,who:"",note:"Entered before money lines"}); if(num(r.earned)) out.push({id:"legacy-e",kind:"sale",cat:"Other income",amt:+r.earned,who:"",note:"Entered before money lines"}); return out; }
+function totalsOf(lines){ let spent=0,earned=0,gave=0,got=0; for(const l of lines){ if(l.kind==="expense") spent+=+l.amt||0; else if(l.kind==="sale") earned+=+l.amt||0; else if(l.kind==="trade"){ gave+=+l.give||0; got+=+l.get||0; } } return {spent,earned,gave,got}; }
+function saveMoney(d,lines){ const t=totalsOf(lines); touchDay(d,{money:lines,spent:t.spent||null,earned:t.earned||null}); }
+const fmtNum = n => (Math.round(n*100)/100).toLocaleString("en-US");
+
+// ---------- Banners (backup, supplies, egg holds) ----------
+const LASTBK="farm-journal-lastbackup";
+function lastBackup(){ try{ return localStorage.getItem(LASTBK); }catch(e){ return null; } }
+function renderBanners(){
+  const box=$("banners"); if(!box) return; box.innerHTML="";
+  const add=(cls,icon,title,body,btn,fn)=>{ const d=document.createElement("div"); d.className="banner "+cls; d.innerHTML=`<span class="bi" aria-hidden="true">${icon}</span><div><b>${esc(title)}</b><span>${esc(body)}</span></div>`; if(btn){ const b=document.createElement("button"); b.type="button"; b.textContent=btn; b.onclick=fn; d.appendChild(b); } box.appendChild(d); };
+  const holds=holdsOn(sel);
+  if(holds.length){ const last=holds.map(h=>h.until).sort().pop(); add("warn","⚠","Don't sell or trade eggs yet",`Treatment waiting period until ${fShort.format(parse(last))} (${holds.map(h=>h.what).join(", ")}).`); }
+  if(sel===today){
+    inv.filter(i=>!i.off).forEach(i=>{ const s=invState(i); if(s.level==null) return; if(s.low) add("warn","📦",`${i.name} is running low`, s.daysLeft!=null?`About ${Math.max(0,Math.floor(s.daysLeft))} days left (${fmtNum(Math.max(0,s.est))} ${i.unit}).`:`${fmtNum(Math.max(0,s.est))} ${i.unit} left.`,"Log purchase",()=>{ go("more"); setTimeout(()=>openInvForm(i.id,"buy"),50); }); });
+    if(APP){ const lb=lastBackup(), logged=Object.values(days).length; const age=lb?daysBetween(lb.slice(0,10),today):null;
+      if(logged && (age==null || age>=7)) add("","💾", age==null?"You haven't backed up yet":`Last backup was ${age} days ago`, "Your journal only lives on this phone. Save a copy.","Back up",()=>{ go("more"); setTimeout(()=>$("expJson").click(),50); }); }
+  }
+}
+
+// ---------- Flock ----------
+let flockForm=null; // "add" | "remove" | "treat" | null
+function renderFlock(){
+  const card=$("flockCard"); if(!card) return;
+  const n=birdsOn(sel), evs=arr(sel,"flock"), trs=arr(sel,"treat"), holds=holdsOn(sel).filter(h=>h.from!==sel);
+  $("flockSub").textContent = hasFlockHistory() ? "" : "Add your birds when they arrive";
+  let h=`<div class="flocktop"><div class="birds">${n}<small>Birds on hand</small></div><div class="chiprow">
+    <button class="pillbtn" type="button" data-ff="add">+ Add birds</button>
+    <button class="pillbtn" type="button" data-ff="remove">− Remove birds</button>
+    <button class="pillbtn" type="button" data-ff="treat">Log treatment</button></div></div>`;
+  if(evs.length||trs.length||holds.length){ h+='<div class="evlist">';
+    evs.forEach(e=>{ h+=`<div class="ev"><span class="amt ${e.n>0?"pos":"neg"}">${e.n>0?"+":""}${e.n}</span><span class="what">${esc(e.reason)}${e.note?`<small>${esc(e.note)}</small>`:""}</span><button class="x" type="button" data-delf="${esc(e.id)}" aria-label="Remove this entry">×</button></div>`; });
+    trs.forEach(t=>{ const until=addDays(sel,+t.days||0); h+=`<div class="ev${(+t.days||0)>0?" hold":""}"><span class="amt">Rx</span><span class="what">${esc(t.what)}<small>${(+t.days||0)>0?`Eggs OK to sell from ${fShort.format(parse(until))}`:"No egg waiting period"}${t.note?" · "+esc(t.note):""}</small></span><button class="x" type="button" data-delt="${esc(t.id)}" aria-label="Remove this treatment">×</button></div>`; });
+    holds.forEach(t=>{ h+=`<div class="ev hold"><span class="amt">Rx</span><span class="what">${esc(t.what)} (from ${fShort.format(parse(t.from))})<small>Eggs OK to sell from ${fShort.format(parse(t.until))}</small></span><span></span></div>`; });
+    h+='</div>'; }
+  if(flockForm==="add"||flockForm==="remove"){
+    const rs=flockForm==="add"?ADD_REASONS:LOSS_REASONS;
+    h+=`<form class="miniform" id="ffForm"><span class="ttl">${flockForm==="add"?"Birds added":"Birds removed"}</span>
+      <div class="row"><input id="ffN" type="number" min="1" step="1" inputmode="numeric" placeholder="How many" aria-label="How many birds" required>
+      <select id="ffReason" aria-label="Reason">${rs.map(x=>`<option>${x}</option>`).join("")}</select></div>
+      <input id="ffNote" placeholder="Note (optional), e.g. 12 Coturnix hens from …" aria-label="Note">
+      <div class="row"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" data-ff="">Cancel</button></div></form>`;
+  } else if(flockForm==="treat"){
+    h+=`<form class="miniform" id="ffForm"><span class="ttl">Treatment</span>
+      <input id="ffWhat" placeholder="What you gave, e.g. Corid in water" aria-label="Treatment" required>
+      <div class="row"><input id="ffDays" type="number" min="0" step="1" inputmode="numeric" placeholder="Egg waiting period (days)" aria-label="Egg waiting period in days">
+      <input id="ffNote" placeholder="Which birds / note" aria-label="Note"></div>
+      <p class="small">Check the product label for the egg waiting period. Enter 0 if there isn't one.</p>
+      <div class="row"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" data-ff="">Cancel</button></div></form>`;
+  }
+  card.innerHTML=h;
+  card.querySelectorAll("[data-ff]").forEach(b=>b.onclick=()=>{ flockForm=b.dataset.ff||null; renderFlock(); const f=$("ffN")||$("ffWhat"); if(f) f.focus(); });
+  card.querySelectorAll("[data-delf]").forEach(b=>b.onclick=()=>{ touchDay(sel,{flock:arr(sel,"flock").filter(e=>e.id!==b.dataset.delf)}); renderToday(); });
+  card.querySelectorAll("[data-delt]").forEach(b=>b.onclick=()=>{ touchDay(sel,{treat:arr(sel,"treat").filter(e=>e.id!==b.dataset.delt)}); renderToday(); });
+  const f=$("ffForm"); if(f) f.onsubmit=ev=>{ ev.preventDefault();
+    if(flockForm==="treat"){ const what=$("ffWhat").value.trim(); if(!what) return; touchDay(sel,{treat:[...arr(sel,"treat"),{id:uid("t"),what,days:Math.max(0,num($("ffDays").value)||0),note:$("ffNote").value.trim()}]}); toast("Treatment logged"); }
+    else { const k=Math.round(num($("ffN").value)||0); if(k<=0){ $("ffN").focus(); return; } const sign=flockForm==="add"?1:-1; touchDay(sel,{flock:[...arr(sel,"flock"),{id:uid("f"),n:sign*k,reason:$("ffReason").value,note:$("ffNote").value.trim()}]}); toast(sign>0?`${k} bird${k===1?"":"s"} added`:`${k} bird${k===1?"":"s"} removed`); }
+    flockForm=null; renderToday(); };
+}
+
+// ---------- Eggs ----------
+function renderEggs(){
+  const n=birdsOn(sel), e=num(rec(sel).eggs);
+  $("layRate").innerHTML = (n>0 && e!=null) ? `<b>${Math.round(e/n*100)}%</b>laying rate (${e} from ${n} birds)` : (n>0?`<b>–</b>enter eggs to see laying rate`:"");
+  const oh=eggsOnHand(sel);
+  $("eggStock").textContent = oh>0 ? `${oh} on hand · ${fmtNum(oh/12)} dozen` : "";
+}
+
+// ---------- Money ----------
+let mForm=null; // {kind, editId}
+function renderMoney(){
+  const card=$("moneyCard"); if(!card) return;
+  const lines=moneyLines(sel), t=totalsOf(lines);
+  let h="";
+  if(lines.length){ h+='<div class="evlist" style="margin-top:0">'; lines.forEach(l=>{
+    const amt = l.kind==="trade" ? `⇄` : (l.kind==="sale"?"+":"−")+money(+l.amt||0);
+    const title = l.kind==="trade" ? `Trade${l.who?" with "+esc(l.who):""}` : esc(l.cat)+(l.who?` · ${esc(l.who)}`:"");
+    const sub = l.kind==="trade" ? `Gave ${esc(l.giveWhat||"")} (${money(+l.give||0)}) · got ${esc(l.getWhat||"")} (${money(+l.get||0)})` : esc(l.note||"");
+    h+=`<div class="ev"><span class="amt ${l.kind==="sale"?"pos":l.kind==="expense"?"neg":""}">${amt}</span><button type="button" class="what" data-edit="${esc(l.id)}" style="text-align:left">${title}${sub?`<small>${sub}</small>`:""}</button><button class="x" type="button" data-delm="${esc(l.id)}" aria-label="Remove this line">×</button></div>`; });
+    h+='</div>'; }
+  else if(!mForm) h+='<p class="small" style="margin:0 0 10px">Nothing spent, sold or traded today.</p>';
+  if(!mForm) h+=`<div class="chiprow" style="margin-top:${lines.length?12:0}px"><button class="pillbtn" type="button" data-mk="expense">+ Expense</button><button class="pillbtn" type="button" data-mk="sale">+ Sale</button><button class="pillbtn" type="button" data-mk="trade">+ Trade</button></div>`;
+  else {
+    const e=mForm.editId?lines.find(x=>x.id===mForm.editId)||{}:{}; const k=mForm.kind;
+    h+=`<form class="miniform" id="mfForm" style="margin-top:${lines.length?12:0}px"><div class="kinds" role="group" aria-label="Type">${["expense","sale","trade"].map(x=>`<button type="button" data-kind="${x}" aria-pressed="${x===k}">${x==="expense"?"Expense":x==="sale"?"Sale":"Trade"}</button>`).join("")}</div>`;
+    if(k==="trade"){
+      h+=`<input id="mfWho" placeholder="Trade partner" value="${esc(e.who||"")}" aria-label="Trade partner">
+        <div class="row"><input id="mfGiveWhat" placeholder="You gave, e.g. 2 doz quail eggs" value="${esc(e.giveWhat||"")}" aria-label="What you gave"><input id="mfGive" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Worth $" value="${e.give??""}" aria-label="Value of what you gave"></div>
+        <div class="row"><input id="mfGetWhat" placeholder="You got, e.g. 3 bunches kale" value="${esc(e.getWhat||"")}" aria-label="What you got"><input id="mfGet" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Worth $" value="${e.get??""}" aria-label="Value of what you got"></div>
+        <p class="small">Use fair market value: what each side would sell for.</p>`;
+    } else {
+      const cats=k==="expense"?EXP_CATS:INC_CATS;
+      h+=`<div class="row"><input id="mfAmt" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Amount $" value="${e.amt??""}" aria-label="Amount" required>
+        <select id="mfCat" aria-label="Category">${cats.map(c=>`<option${c===e.cat?" selected":""}>${c}</option>`).join("")}</select></div>
+        <input id="mfWho" placeholder="${k==="expense"?"Where, e.g. Feed store":"Buyer, e.g. Breakfast vendor"}" value="${esc(e.who||"")}" aria-label="${k==="expense"?"Where":"Buyer"}">
+        <input id="mfNote" placeholder="Note, e.g. 50 lb game bird crumble" value="${esc(e.note||"")}" aria-label="Note">`;
+    }
+    h+=`<div class="row"><button class="btn primary" type="submit">${mForm.editId?"Save changes":"Save"}</button><button class="btn" type="button" id="mfCancel">Cancel</button></div></form>`;
+  }
+  if(lines.length){ const bits=[]; if(t.spent) bits.push(`Spent <b>${money(t.spent)}</b>`); if(t.earned) bits.push(`Earned <b>${money(t.earned)}</b>`); if(t.gave||t.got) bits.push(`Traded <b>${money(t.gave)}</b> for <b>${money(t.got)}</b>`); h+=`<div class="mtot">${bits.join("")}</div>`; }
+  card.innerHTML=h;
+  $("moneySub").textContent="";
+  card.querySelectorAll("[data-mk]").forEach(b=>b.onclick=()=>{ mForm={kind:b.dataset.mk}; renderMoney(); const f=$("mfAmt")||$("mfWho"); if(f) f.focus(); });
+  card.querySelectorAll("[data-kind]").forEach(b=>b.onclick=()=>{ mForm={...mForm,kind:b.dataset.kind}; renderMoney(); });
+  card.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{ const l=lines.find(x=>x.id===b.dataset.edit); if(!l) return; mForm={kind:l.kind,editId:l.id}; renderMoney(); });
+  card.querySelectorAll("[data-delm]").forEach(b=>b.onclick=()=>{ saveMoney(sel,moneyLines(sel).filter(x=>x.id!==b.dataset.delm)); renderToday(); });
+  const c=$("mfCancel"); if(c) c.onclick=()=>{ mForm=null; renderMoney(); };
+  const f=$("mfForm"); if(f) f.onsubmit=ev=>{ ev.preventDefault();
+    const k=mForm.kind; let line={id:mForm.editId&&!mForm.editId.startsWith("legacy")?mForm.editId:uid("m"),kind:k,who:($("mfWho").value||"").trim()};
+    if(k==="trade"){ Object.assign(line,{giveWhat:$("mfGiveWhat").value.trim(),give:num($("mfGive").value)||0,getWhat:$("mfGetWhat").value.trim(),get:num($("mfGet").value)||0}); if(!line.giveWhat&&!line.getWhat){ $("mfGiveWhat").focus(); return; } }
+    else { const a=num($("mfAmt").value); if(a==null){ $("mfAmt").focus(); return; } Object.assign(line,{amt:a,cat:$("mfCat").value,note:$("mfNote").value.trim()}); }
+    const cur=moneyLines(sel).filter(x=>x.id!==mForm.editId);
+    saveMoney(sel,[...cur,line]); toast(mForm.editId?"Saved changes":(k==="expense"?"Expense added":k==="sale"?"Sale added":"Trade added")); mForm=null; renderToday(); };
+}
+
+// ---------- Supplies ----------
+function invEvents(id){ const out=[]; for(const d of sortedDays()) for(const e of arr(d,"stock")) if(e.item===id) out.push({...e,date:d}); return out; }
+function invState(item){
+  const evs=invEvents(item.id); let level=null,lastCount=null,lastDate=null,lastCountDate=null; const used=[];
+  for(const e of evs){
+    if(e.type==="count"){ if(level!=null && lastCountDate){ const c=level-(+e.qty||0), span=daysBetween(lastCountDate,e.date); if(c>=0&&span>0) used.push({end:e.date,c,span}); } level=+e.qty||0; lastCountDate=e.date; lastCount=e.date; }
+    else { level=(level||0)+(+e.qty||0); }
+    lastDate=e.date;
+  }
+  const recent=used.filter(u=>daysBetween(u.end,today)<=90), totC=recent.reduce((a,u)=>a+u.c,0), totD=recent.reduce((a,u)=>a+u.span,0);
+  const rate = totD>0 ? totC/totD : null;
+  const est = level==null?null:(rate&&lastDate? level-rate*Math.max(0,daysBetween(lastDate,today)) : level);
+  const daysLeft = (rate&&est!=null&&rate>0) ? est/rate : null;
+  const low = est!=null && ((item.low!=null && est<=item.low) || (daysLeft!=null && daysLeft<=7));
+  return {level,est,rate,daysLeft,lastCount,lastDate,low};
+}
+let invForm=null; // {id, type}
+function openInvForm(id,type){ invForm={id,type}; renderSupplies(); const f=$("ifQty"); if(f) f.focus(); }
+function renderSupplies(){
+  const box=$("invList"); if(!box) return; box.innerHTML="";
+  inv.filter(i=>!i.off).forEach(i=>{
+    const s=invState(i), row=document.createElement("div"); row.className="inv";
+    const cap=Math.max(i.low*4||0, s.level||0, 1), pct=s.est==null?0:Math.max(0,Math.min(100,s.est/cap*100));
+    let meta = s.level==null ? "Not counted yet. Log a purchase or count what you have." :
+      [s.rate?`Using about ${fmtNum(s.rate)} ${i.unit}/day`:"Count again in a few days to learn your usage",
+       s.daysLeft!=null?`~${Math.max(0,Math.floor(s.daysLeft))} days left`:"",
+       s.lastCount?`counted ${fShort.format(parse(s.lastCount))}`:""].filter(Boolean).join(" · ");
+    row.innerHTML=`<div class="ih"><b>${esc(i.name)}</b><span class="lvl">${s.est==null?"–":fmtNum(Math.max(0,s.est))+" "+esc(i.unit)}</span></div>
+      <div class="bar"><i class="${s.low?"low":""}" style="width:${pct}%"></i></div>
+      <div class="meta${s.low?" low":""}">${s.low?"Running low · ":""}${esc(meta)}</div>
+      <div class="chiprow"><button class="pillbtn" type="button" data-ib="buy">Bought some</button><button class="pillbtn" type="button" data-ib="count">Count what's left</button></div>`;
+    row.querySelectorAll("[data-ib]").forEach(b=>b.onclick=()=>openInvForm(i.id,b.dataset.ib));
+    if(invForm&&invForm.id===i.id){
+      const f=document.createElement("form"); f.className="miniform";
+      f.innerHTML = invForm.type==="buy"
+        ? `<span class="ttl">Bought ${esc(i.name.toLowerCase())}</span><div class="row"><input id="ifQty" type="number" min="0" step="any" inputmode="decimal" placeholder="How many ${esc(i.unit)}" aria-label="Amount bought" required><input id="ifCost" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Cost $ (optional)" aria-label="Cost"></div><div class="row"><input id="ifWho" placeholder="Where (optional)" aria-label="Where"><input id="ifDate" type="date" value="${today}" aria-label="Date"></div><p class="small">If you enter a cost, it's also added as a ${esc(i.cat||"Supplies & tools")} expense on that day.</p>`
+        : `<span class="ttl">Count ${esc(i.name.toLowerCase())} on hand</span><div class="row"><input id="ifQty" type="number" min="0" step="any" inputmode="decimal" placeholder="${esc(i.unit)} left" aria-label="Amount on hand" required><input id="ifDate" type="date" value="${today}" aria-label="Date"></div>`;
+      f.insertAdjacentHTML("beforeend",`<div class="row"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" id="ifCancel">Cancel</button></div>`);
+      f.onsubmit=ev=>{ ev.preventDefault(); const q=num($("ifQty").value); if(q==null){ $("ifQty").focus(); return; }
+        const d=/^\d{4}-\d{2}-\d{2}$/.test($("ifDate").value)?$("ifDate").value:today;
+        const patch={stock:[...arr(d,"stock"),{id:uid("s"),item:i.id,type:invForm.type,qty:q}]};
+        if(invForm.type==="buy"){ const cost=num($("ifCost").value); if(cost){ const lines=[...moneyLines(d),{id:uid("m"),kind:"expense",cat:i.cat||"Supplies & tools",amt:cost,who:$("ifWho").value.trim(),note:`${fmtNum(q)} ${i.unit} ${i.name.toLowerCase()}`}]; const t=totalsOf(lines); Object.assign(patch,{money:lines,spent:t.spent||null,earned:t.earned||null}); } }
+        touchDay(d,patch); toast(invForm.type==="buy"?"Purchase logged":"Count saved"); invForm=null; renderSupplies(); };
+      row.appendChild(f);
+      setTimeout(()=>{ const c=$("ifCancel"); if(c) c.onclick=()=>{ invForm=null; renderSupplies(); }; },0);
+    }
+    box.appendChild(row);
+  });
+  renderInvEditor();
+}
+function saveInv(){ queue("inv",()=>store.saveInv()); }
+function renderInvEditor(){
+  const box=$("invEdit"); if(!box) return; box.innerHTML="";
+  inv.filter(i=>!i.off).forEach(i=>{
+    const row=document.createElement("div"); row.className="erow";
+    row.innerHTML=`<div class="top"><input class="field" value="${esc(i.name)}" aria-label="Item name"><button class="btn danger" type="button">Remove</button></div>
+      <div class="sched"><span class="lb">Unit</span><input value="${esc(i.unit)}" aria-label="Unit"><span class="lb">Warn at</span><input type="number" min="0" step="any" value="${i.low??""}" aria-label="Warn when at or below"><select aria-label="Expense category">${EXP_CATS.map(c=>`<option${c===(i.cat||"Supplies & tools")?" selected":""}>${c}</option>`).join("")}</select></div>`;
+    const [nm,un,lo]=row.querySelectorAll("input"), cat=row.querySelector("select"), rm=row.querySelector(".btn.danger");
+    nm.onchange=()=>{ if(nm.value.trim()){ i.name=nm.value.trim(); saveInv(); renderSupplies(); } };
+    un.onchange=()=>{ i.unit=un.value.trim()||i.unit; saveInv(); renderSupplies(); };
+    lo.onchange=()=>{ i.low=num(lo.value); saveInv(); renderSupplies(); };
+    cat.onchange=()=>{ i.cat=cat.value; saveInv(); };
+    rm.onclick=()=>{ if(rm.dataset.sure){ i.off=true; saveInv(); renderSupplies(); } else { rm.dataset.sure="1"; rm.textContent="Tap again to remove"; } };
+    box.appendChild(row);
+  });
+}
+$("invAdd").addEventListener("submit",ev=>{ ev.preventDefault(); const n=$("invName").value.trim(); if(!n){ $("invName").focus(); return; }
+  inv.push({id:uid("i"),name:n,unit:$("invUnit").value.trim()||"units",low:num($("invLow").value),cat:"Supplies & tools"});
+  $("invName").value=$("invUnit").value=$("invLow").value=""; saveInv(); renderSupplies(); toast("Item added"); });
+
+// ---------- FSA experience summary ----------
+function fsaStats(){
+  const ds=sortedDays().filter(d=>dayStatus(d).touched);
+  const first=ds[0]||null, last=ds[ds.length-1]||null;
+  let hours=0,eggs=0,pDone=0,pDue=0,need=0,done=0,stars=[],buyers=new Set(),exp={},inc={},trades=0,tradeVal=0,months={};
+  for(const d of sortedDays()){
+    const r=days[d], s=dayStatus(d), m=d.slice(0,7);
+    const M=months[m]||(months[m]={days:0,hours:0,eggs:0,spent:0,earned:0});
+    if(s.touched) M.days++;
+    hours+=num(r.hours)||0; M.hours+=num(r.hours)||0; eggs+=num(r.eggs)||0; M.eggs+=num(r.eggs)||0;
+    if(d<=today){ need+=s.need; done+=s.done; }
+    if(r.star) stars.push({d,notes:r.notes||""});
+    for(const l of moneyLines(d)){
+      if(l.kind==="expense"){ exp[l.cat]=(exp[l.cat]||0)+(+l.amt||0); M.spent+=+l.amt||0; }
+      else if(l.kind==="sale"){ inc[l.cat]=(inc[l.cat]||0)+(+l.amt||0); M.earned+=+l.amt||0; if(l.who) buyers.add(l.who); }
+      else if(l.kind==="trade"){ trades++; tradeVal+=(+l.get||0); if(l.who) buyers.add(l.who); }
+    }
+  }
+  PLAN.forEach(([d])=>{ if(d<=today && rec(d).plan!=="na"){ pDue++; if(rec(d).plan==="done") pDone++; } });
+  const span = first ? daysBetween(first,today)+1 : 0;
+  return {first,last,span,months:span/30.44,logged:ds.length,hours,eggs,pDone,pDue,kept:need?Math.round(done/need*100):null,stars,buyers:[...buyers],exp,inc,trades,tradeVal,byMonth:months,birds:birdsOn(today)};
+}
+function renderFsa(){
+  const c=$("fsaCard"); if(!c) return; const s=fsaStats();
+  const sum=o=>Object.values(o).reduce((a,b)=>a+b,0);
+  c.innerHTML = !s.first ? '<p class="small" style="margin:0">Your summary builds as you log days.</p>' :
+   `<p class="small" style="margin:0 0 12px">Documented since ${fFull.format(parse(s.first))}: ${fmtNum(s.months)} months.</p>
+   <div class="fsagrid">
+     <div><b>${s.logged}</b><span>Days logged</span></div><div><b>${fmtNum(s.hours)}</b><span>Hours of work</span></div>
+     <div><b>${s.pDone}/${s.pDue}</b><span>Plan tasks done</span></div><div><b>${s.kept==null?"–":s.kept+"%"}</b><span>Kept up overall</span></div>
+     <div><b>${s.birds}</b><span>Birds now</span></div><div><b>${s.eggs}</b><span>Eggs collected</span></div>
+     <div><b>${money(sum(s.inc))}</b><span>Sales</span></div><div><b>${money(sum(s.exp))}</b><span>Expenses</span></div>
+     <div><b>${s.trades}</b><span>Trades (${money(s.tradeVal)} received)</span></div><div><b>${s.stars.length}</b><span>Decisions & lessons starred</span></div>
+   </div>
+   ${s.buyers.length?`<p class="small" style="margin-top:12px">Buyers and trade partners: ${esc(s.buyers.join(", "))}</p>`:""}
+   <div class="btnrow" style="margin-top:14px"><button class="btn primary" type="button" id="fsaExport">Export FSA summary</button></div>
+   <p class="small" style="margin-top:8px">Saves a one-page report (HTML) you can open in any browser, print, or save as PDF for your loan officer.</p>`;
+  const b=$("fsaExport"); if(b) b.onclick=exportFsa;
+}
+function exportFsa(){
+  flushFields(); const s=fsaStats(); const sum=o=>Object.values(o).reduce((a,b)=>a+b,0);
+  const rows=Object.entries(s.byMonth).filter(([m,v])=>v.days||v.hours||v.eggs||v.spent||v.earned).map(([m,v])=>`<tr><td>${F({month:"long",year:"numeric"}).format(parse(m+"-01"))}</td><td>${v.days}</td><td>${fmtNum(v.hours)}</td><td>${v.eggs}</td><td>${money(v.earned)}</td><td>${money(v.spent)}</td></tr>`).join("");
+  const cat=o=>Object.entries(o).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<li>${esc(k)}: ${money(v)}</li>`).join("")||"<li>None recorded</li>";
+  const plans=PLAN.filter(([d])=>rec(d).plan==="done").map(([d,tag,title])=>`<li>${fShort.format(parse(d))}: ${esc(title)}</li>`).join("")||"<li>None yet</li>";
+  const stars=s.stars.map(x=>`<li><b>${fFull.format(parse(x.d))}</b><br>${esc(x.notes).replace(/\n/g,"<br>")}</li>`).join("")||"<li>None starred yet</li>";
+  const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Farm Experience Summary</title>
+<style>body{font:15px/1.5 Georgia,serif;color:#1b1b1b;max-width:760px;margin:32px auto;padding:0 20px}h1{font-size:26px;margin:0}h2{font-size:18px;margin:28px 0 8px;border-bottom:1px solid #ccc;padding-bottom:4px}.sub{color:#555;margin:4px 0 20px}table{border-collapse:collapse;width:100%;font:14px Arial,sans-serif}td,th{border-bottom:1px solid #ddd;padding:6px 8px;text-align:left}th{background:#f2f2f2}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 24px;font:14px Arial,sans-serif}ul{padding-left:20px}li{margin:4px 0}</style></head><body>
+<h1>Farm Operation Experience Summary</h1><p class="sub">Humboldt Farms (Sacramento backyard operation) · Prepared ${fFull.format(parse(today))} from the daily farm journal</p>
+<h2>Overview</h2><div class="grid"><div>Records kept since: <b>${s.first?fFull.format(parse(s.first)):"–"}</b></div><div>Length of record: <b>${fmtNum(s.months)} months</b></div><div>Days logged: <b>${s.logged}</b></div><div>Hours of farm work logged: <b>${fmtNum(s.hours)}</b></div><div>Plan tasks completed: <b>${s.pDone} of ${s.pDue}</b></div><div>Daily task completion: <b>${s.kept==null?"–":s.kept+"%"}</b></div><div>Birds on hand: <b>${s.birds}</b></div><div>Eggs collected: <b>${s.eggs}</b></div><div>Sales: <b>${money(sum(s.inc))}</b></div><div>Expenses: <b>${money(sum(s.exp))}</b></div><div>Trades: <b>${s.trades}</b> (${money(s.tradeVal)} received)</div><div>Buyers / trade partners: <b>${s.buyers.length}</b></div></div>
+<h2>By month</h2><table><tr><th>Month</th><th>Days logged</th><th>Hours</th><th>Eggs</th><th>Sales</th><th>Expenses</th></tr>${rows}</table>
+<h2>Income by category</h2><ul>${cat(s.inc)}</ul><h2>Expenses by category</h2><ul>${cat(s.exp)}</ul>
+${s.buyers.length?`<h2>Buyers and trade partners</h2><p>${esc(s.buyers.join(", "))}</p>`:""}
+<h2>Management decisions and lessons</h2><ul>${stars}</ul>
+<h2>FSA Groundwork Plan tasks completed</h2><ul>${plans}</ul>
+<p class="sub" style="margin-top:28px">Supporting receipts, daily checklists and notes are kept in the farm journal and are available on request.</p></body></html>`;
+  saveFile(`farm-experience-summary-${today}.html`, html, "text/html").then(()=>toast("Summary exported"));
+}
 
 // ---------- CALENDAR ----------
 function renderCal(){
@@ -747,7 +1179,7 @@ function renderCal(){
     const s=dayStatus(k), r=rec(k), p=PLANMAP[k];
     const full = s.need>0 ? s.done>=s.need : s.na>0;
     b.className="cday"+(k===today?" today":"")+(k===sel?" sel":"")+(s.touched?(full?" full":" part"):"");
-    b.innerHTML=`<span class="n">${d.getDate()}</span><span class="marks">${p?'<i class="p"></i>':''}${r.notes?'<i class="nt"></i>':''}</span>${r.star?'<span class="st" aria-hidden="true">★</span>':''}`;
+    b.innerHTML=`<span class="n">${d.getDate()}</span><span class="marks">${p?'<i class="p"></i>':''}${r.notes?'<i class="nt"></i>':''}${(r.receipts&&r.receipts.length)?'<i class="rc"></i>':''}</span>${r.star?'<span class="st" aria-hidden="true">★</span>':''}`;
     b.setAttribute("aria-label",fFull.format(d)+(s.touched?`, ${s.done} of ${s.need} done`:"")+(p?`. Plan: ${p.title}`:""));
     b.onclick=()=>openDay(k);
     cal.appendChild(b);
@@ -761,21 +1193,29 @@ function monthDates(m){ const y=m.getFullYear(), mo=m.getMonth(), n=new Date(y,m
 function renderProgress(){
   $("pTitle").textContent=fMonth.format(progMonth);
   const ds=monthDates(progMonth);
-  let logged=0,pDone=0,pTot=0,need=0,done=0,h=0,eg=0,sp=0,ea=0;
+  let logged=0,pDone=0,pTot=0,need=0,done=0,h=0,eg=0,sp=0,ea=0,birdDays=0,eggsWithBirds=0,feedCost=0,gave=0,got=0;
+  const exp={},inc={};
   ds.forEach(d=>{ const r=rec(d), s=dayStatus(d);
     if(s.touched) logged++;
     if(PLANMAP[d] && d<=today && r.plan!=="na"){ pTot++; if(r.plan==="done") pDone++; }
     if(d<=today){ need+=s.need; done+=s.done; }
-    h+=num(r.hours)||0; eg+=num(r.eggs)||0; sp+=num(r.spent)||0; ea+=num(r.earned)||0; });
+    h+=num(r.hours)||0; eg+=num(r.eggs)||0;
+    const b=birdsOn(d); if(b>0 && num(r.eggs)!=null){ birdDays+=b; eggsWithBirds+=num(r.eggs); }
+    for(const l of moneyLines(d)){ if(l.kind==="expense"){ sp+=+l.amt||0; exp[l.cat]=(exp[l.cat]||0)+(+l.amt||0); if(l.cat==="Feed") feedCost+=+l.amt||0; } else if(l.kind==="sale"){ ea+=+l.amt||0; inc[l.cat]=(inc[l.cat]||0)+(+l.amt||0); } else if(l.kind==="trade"){ gave+=+l.give||0; got+=+l.get||0; } } });
   const net=ea-sp;
   const tiles=[
     ["hl", need?Math.round(done/need*100)+"%":"–", "Kept up"],
     ["", `${pDone}/${pTot}`, "Plan tasks done"],
     ["", logged, "Days logged"],
     ["", Math.round(h*100)/100, "Hours"],
-    ["", eg, "Eggs"],
-    ["", (net<0?"−":"")+money(Math.abs(net)), "Net"]
+    ["", eg, "Eggs collected"],
+    ["", birdDays?Math.round(eggsWithBirds/birdDays*100)+"%":"–", "Laying rate"],
+    ["", (net<0?"−":"")+money(Math.abs(net)), "Net cash"],
+    ["", got||gave?money(got):"–", "Trade value received"],
+    ["", feedCost&&eg?money(feedCost/(eg/12)):"–", "Feed cost per dozen"]
   ];
+  const mm=$("moneyMonth"); const list=o=>Object.entries(o).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="ev" style="grid-template-columns:minmax(0,1fr) auto"><span class="what">${esc(k)}</span><span class="amt">${money(v)}</span></div>`).join("");
+  mm.innerHTML = (sp||ea||gave||got) ? `<p class="small" style="font-weight:600;margin:0 0 8px">Money this month</p>${ea?`<p class="small" style="margin:6px 0 4px">Income · ${money(ea)}</p><div class="evlist" style="margin:0">${list(inc)}</div>`:""}${sp?`<p class="small" style="margin:10px 0 4px">Expenses · ${money(sp)}</p><div class="evlist" style="margin:0">${list(exp)}</div>`:""}${gave||got?`<p class="small" style="margin:10px 0 0">Trades: gave ${money(gave)}, received ${money(got)}</p>`:""}` : '<p class="small" style="margin:0">No money logged this month.</p>';
   $("tiles").innerHTML=tiles.map(([c,v,l])=>`<div class="card tile ${c}"><b>${v}</b><span>${l}</span></div>`).join("");
   const rows=[{name:"FSA plan task",sched:"",get:d=>PLANMAP[d]?(rec(d).plan||"miss"):"off"}];
   items.forEach(it=>{ if(ds.some(d=>applies(it,d))) rows.push({name:it.label,sched:(it.freq&&it.freq!=="daily")?it.freq:"",get:d=>applies(it,d)?((rec(d).checks||{})[it.id]||"miss"):"off"}); });
@@ -800,9 +1240,27 @@ $("pPrev").onclick=()=>{ progMonth=new Date(progMonth.getFullYear(),progMonth.ge
 $("pNext").onclick=()=>{ progMonth=new Date(progMonth.getFullYear(),progMonth.getMonth()+1,1); renderProgress(); };
 
 // ---------- NOTES ----------
+function renderReceiptList(qv){
+  const box=$("nlist"); box.innerHTML="";
+  const ds=Object.keys(days).sort().reverse().filter(d=>{ const rs=receiptsOf(d); if(!rs.length) return false; return !qv || rs.some(r=>(r.label||"").toLowerCase().includes(qv)) || (days[d].notes||"").toLowerCase().includes(qv); });
+  if(!ds.length){ const e=document.createElement("div"); e.className="card empty"; e.textContent = qv ? "No receipts match your search." : "Receipt photos you add on any day will be collected here."; box.appendChild(e); return; }
+  let total=0;
+  for(const d of ds.slice(0,120)){
+    const card=document.createElement("div"); card.className="card rday";
+    const rs=receiptsOf(d); total+=rs.length;
+    const hd=document.createElement("button"); hd.type="button"; hd.className="d"; hd.style.width="100%";
+    hd.innerHTML=`<span>${fFull.format(parse(d))}</span><span>${num(days[d].spent)!=null?"Spent "+money(+days[d].spent):""}</span>`;
+    hd.onclick=()=>openDay(d);
+    const g=document.createElement("div"); g.className="rgrid";
+    for(let i=0;i<rs.length;i++) g.appendChild(thumb(rs[i],d,i));
+    card.append(hd,g); box.appendChild(card);
+  }
+}
 function renderNotes(){
-  $("segStar").setAttribute("aria-pressed",String(noteMode==="star")); $("segAll").setAttribute("aria-pressed",String(noteMode==="all"));
+  $("segStar").setAttribute("aria-pressed",String(noteMode==="star")); $("segAll").setAttribute("aria-pressed",String(noteMode==="all")); $("segRc").setAttribute("aria-pressed",String(noteMode==="rc"));
+  $("q").placeholder = noteMode==="rc" ? "Search receipt labels" : "Search notes";
   const qv=$("q").value.trim().toLowerCase();
+  if(noteMode==="rc"){ renderReceiptList(qv); return; }
   const ds=Object.keys(days).sort().reverse().filter(d=>{ const r=days[d]; if(noteMode==="star"?!r.star:!r.notes) return false; return !qv || (r.notes||"").toLowerCase().includes(qv); });
   const box=$("nlist"); box.innerHTML="";
   if(!ds.length){ const e=document.createElement("div"); e.className="card empty";
@@ -816,6 +1274,7 @@ function renderNotes(){
 }
 $("segStar").onclick=()=>{ noteMode="star"; renderNotes(); };
 $("segAll").onclick=()=>{ noteMode="all"; renderNotes(); };
+$("segRc").onclick=()=>{ noteMode="rc"; renderNotes(); };
 $("q").addEventListener("input",renderNotes);
 
 // ---------- MORE: checklist editor ----------
@@ -884,27 +1343,71 @@ async function saveFile(filename,text,mime){
   if(dl){ try{ await dl.save({filename,data:text}); bk("Saved "+filename); }catch(err){ bk(err&&err.code==="declined"?"Export cancelled.":"Couldn't export here. Try again in a moment."); } return; }
   try{ const url=URL.createObjectURL(new Blob([text],{type:mime})); const a=document.createElement("a"); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),4000); bk("Saved "+filename+" to your downloads"); }catch(e){ bk("Couldn't export here."); }
 }
-$("expJson").onclick=()=>{ flushFields(); if(!Object.keys(days).length){ bk("Nothing to export yet."); return; }
-  saveFile(`farm-journal-backup-${today}.json`, JSON.stringify({app:"farm-journal",version:2,exportedAt:new Date().toISOString(),items,days},null,2), "application/json"); };
+const toDataURL = blob => new Promise((res,rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=()=>rej(fr.error); fr.readAsDataURL(blob); });
+const fromDataURL = async s => { const m=/^data:([^;,]+)?(;base64)?,(.*)$/s.exec(s); if(!m) throw new Error("bad photo data"); const raw=m[2]?atob(m[3]):decodeURIComponent(m[3]); const u=new Uint8Array(raw.length); for(let i=0;i<raw.length;i++) u[i]=raw.charCodeAt(i); return new Blob([u],{type:m[1]||"image/jpeg"}); };
+$("expJson").onclick=async()=>{ flushFields(); if(!Object.keys(days).length){ bk("Nothing to export yet."); return; }
+  const out={app:"farm-journal",version:4,exportedAt:new Date().toISOString(),items,inv,days};
+  let missing=0;
+  if($("bkPhotos").checked){
+    bk("Packing receipt photos…"); out.photos={};
+    for(const d of Object.keys(days)) for(const r of receiptsOf(d)){
+      try{ const b=await photos.get(r.id); if(b) out.photos[r.id]=await toDataURL(b); else missing++; }catch(e){ missing++; }
+    }
+  }
+  await saveFile(`farm-journal-backup-${today}.json`, JSON.stringify(out), "application/json");
+  if(/^Saved/.test($("bkMsg").textContent)){ try{ localStorage.setItem(LASTBK,new Date().toISOString()); }catch(e){} }
+  if(missing) bk($("bkMsg").textContent+` (${missing} photo${missing===1?"":"s"} weren't on this device and were left out.)`);
+};
 $("expCsv").onclick=()=>{ flushFields(); const ds=Object.keys(days).sort(); if(!ds.length){ bk("Nothing to export yet."); return; }
   const qc=v=>{ const s=v==null?"":String(v); return /[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; };
   const word=v=>v==="done"?"done":v==="na"?"not needed":"";
-  const head=["date","plan_task","plan_status",...items.map(i=>i.label),"hours","eggs","spent","earned","worth_remembering","notes"];
-  const rows=ds.map(d=>{ const r=days[d], c=r.checks||{}, p=PLANMAP[d]; return [d,p?p.title:"",p?word(r.plan):"",...items.map(i=>applies(i,d)?word(c[i.id]):""),r.hours,r.eggs,r.spent,r.earned,r.star?"yes":"",r.notes].map(qc).join(","); });
+  const head=["date","plan_task","plan_status",...items.map(i=>i.label),"hours","birds_on_hand","bird_changes","eggs_collected","eggs_sold","eggs_traded","eggs_eaten","eggs_lost","spent","earned","expenses","sales","trades","treatments","supplies","worth_remembering","receipt_photos","receipt_labels","notes"];
+  const rows=ds.map(d=>{ const r=days[d], c=r.checks||{}, p=PLANMAP[d], rs=receiptsOf(d); const ml=moneyLines(d), t=totalsOf(ml);
+    const fl=arr(d,"flock").map(e=>`${e.n>0?"+":""}${e.n} ${e.reason}${e.note?" ("+e.note+")":""}`).join("; ");
+    const ex=ml.filter(l=>l.kind==="expense").map(l=>`${l.cat} ${money(+l.amt||0)}${l.who?" @ "+l.who:""}`).join("; ");
+    const sa=ml.filter(l=>l.kind==="sale").map(l=>`${l.cat} ${money(+l.amt||0)}${l.who?" to "+l.who:""}`).join("; ");
+    const tr=ml.filter(l=>l.kind==="trade").map(l=>`gave ${l.giveWhat||""} (${money(+l.give||0)}) for ${l.getWhat||""} (${money(+l.get||0)})${l.who?" with "+l.who:""}`).join("; ");
+    const tx=arr(d,"treat").map(x=>`${x.what}${(+x.days||0)>0?` (eggs held ${x.days} days)`:""}`).join("; ");
+    const st=arr(d,"stock").map(x=>{ const it=inv.find(i=>i.id===x.item); return `${x.type==="buy"?"bought":"counted"} ${x.qty} ${it?it.unit+" "+it.name.toLowerCase():x.item}`; }).join("; ");
+    return [d,p?p.title:"",p?word(r.plan):"",...items.map(i=>applies(i,d)?word(c[i.id]):""),r.hours,birdsOn(d)||"",fl,r.eggs,r.eggsSold,r.eggsTraded,r.eggsUsed,r.eggsLost,t.spent||"",t.earned||"",ex,sa,tr,tx,st,r.star?"yes":"",rs.length||"",rs.map(x=>x.label).filter(Boolean).join("; "),r.notes].map(qc).join(","); });
   saveFile(`farm-journal-${today}.csv`, "﻿"+[head.map(qc).join(","),...rows].join("\r\n"), "text/csv"); };
 $("impFile").addEventListener("change", async ev=>{
   const file=ev.target.files&&ev.target.files[0]; ev.target.value=""; if(!file) return;
   let data; try{ data=JSON.parse(await file.text()); }catch(e){ bk("That file isn't a journal backup. Choose a .json file made with Export backup."); return; }
-  let added=0,updated=0,skipped=0; const changed=new Set();
+  let added=0,updated=0,skipped=0,photosIn=0; const changed=new Set();
   if(data && data.days && typeof data.days==="object"){
+    bk("Importing…");
+    const pdata=(data.photos&&typeof data.photos==="object")?data.photos:{};
+    const idMap={};
+    async function mapReceipt(rc){
+      if(!rc||typeof rc.id!=="string") return null;
+      if(idMap[rc.id]) return {...rc,id:idMap[rc.id]};
+      let id=rc.id;
+      try{
+        if(!(await photos.has(rc.id)) && typeof pdata[rc.id]==="string" && pdata[rc.id].startsWith("data:image/") && photos.canAdd){
+          id=await photos.put(await fromDataURL(pdata[rc.id])); photosIn++;
+        }
+      }catch(e){ console.warn("photo import failed", e); }
+      idMap[rc.id]=id; return {id,label:typeof rc.label==="string"?rc.label:"",at:rc.at||null};
+    }
     for(const [d,r] of Object.entries(data.days)){
       if(!/^\d{4}-\d{2}-\d{2}$/.test(d)||!r||typeof r!=="object"){ skipped++; continue; }
       const mine=days[d];
       const clean={checks:(r.checks&&typeof r.checks==="object")?Object.fromEntries(Object.entries(r.checks).filter(([k,v])=>v==="done"||v==="na")):{}, plan:(r.plan==="done"||r.plan==="na")?r.plan:null,
         hours:num(r.hours),eggs:num(r.eggs),spent:num(r.spent),earned:num(r.earned),notes:r.notes?String(r.notes):null,star:!!r.star,updatedAt:r.updatedAt||new Date().toISOString()};
       if(Array.isArray(r.oldIds)) clean.oldIds=r.oldIds.filter(x=>typeof x==="string");
-      if(!mine){ days[d]=clean; added++; changed.add(d); } else if((clean.updatedAt||"")>(mine.updatedAt||"")){ days[d]=clean; updated++; changed.add(d); } else skipped++;
+      ["eggsSold","eggsTraded","eggsUsed","eggsLost"].forEach(k=>{ if(num(r[k])!=null) clean[k]=num(r[k]); });
+      const objs=a=>Array.isArray(a)?a.filter(x=>x&&typeof x==="object"&&!Array.isArray(x)).map(x=>JSON.parse(JSON.stringify(x))):null;
+      ["flock","treat","money","stock"].forEach(k=>{ const v=objs(r[k]); if(v&&v.length) clean[k]=v; });
+      const theirs=[]; if(Array.isArray(r.receipts)) for(const rc of r.receipts){ const m=await mapReceipt(rc); if(m) theirs.push(m); }
+      const mineR=mine&&Array.isArray(mine.receipts)?mine.receipts:[];
+      const union=[...mineR, ...theirs.filter(t=>!mineR.some(m=>m.id===t.id))];
+      if(!mine){ if(union.length) clean.receipts=union; days[d]=clean; added++; changed.add(d); }
+      else if((clean.updatedAt||"")>(mine.updatedAt||"")){ if(union.length) clean.receipts=union; days[d]=clean; updated++; changed.add(d); }
+      else if(union.length>mineR.length){ days[d]={...mine,receipts:union,updatedAt:new Date().toISOString()}; updated++; changed.add(d); }
+      else skipped++;
     }
+    if(Array.isArray(data.inv)){ let n=0; data.inv.forEach(it=>{ if(it&&typeof it.id==="string"&&typeof it.name==="string"&&!inv.some(x=>x.id===it.id)){ inv.push({id:it.id,name:it.name,unit:String(it.unit||"units"),low:num(it.low),cat:it.cat||"Supplies & tools",off:!!it.off}); n++; } }); if(n) saveInv(); }
     if(Array.isArray(data.items)){ let n=0; data.items.forEach(it=>{ if(it&&typeof it.id==="string"&&typeof it.label==="string"&&!items.some(x=>x.id===it.id)){ const x={id:it.id,label:it.label,from:it.from||"2026-10-07",to:it.to||null}; if(it.freq) x.freq=it.freq; if(it.dow!=null) x.dow=it.dow; if(it.dom!=null) x.dom=it.dom; items.push(x); n++; } }); if(n) saveItems(); }
   } else {
     const list=Array.isArray(data)?data:(data&&Array.isArray(data.entries)?data.entries:null);
@@ -912,23 +1415,179 @@ $("impFile").addEventListener("change", async ev=>{
     list.forEach(e=>{ const had=!!days[e&&e.date]; if(mergeOldEntry(e)){ days[e.date].updatedAt=new Date().toISOString(); changed.add(e.date); had?updated++:added++; } else skipped++; });
   }
   changed.forEach(d=>queue("day:"+d,()=>store.saveDay(d)));
-  bk(`Imported: ${added} new days, ${updated} updated, ${skipped} skipped.`); render();
+  bk(`Imported: ${added} new days, ${updated} updated, ${skipped} skipped`+(photosIn?`, ${photosIn} receipt photo${photosIn===1?"":"s"}.`:".")); render();
 });
+
+// ---------- Receipt photos ----------
+// On the phone: kept in the browser's IndexedDB. On the Claude page: uploaded to the artifact's asset store.
+const idbPhotos = {
+  _db:null,
+  open(){ if(this._db) return this._db; this._db=new Promise((res,rej)=>{ const r=indexedDB.open("farm-journal",1); r.onupgradeneeded=()=>{ r.result.createObjectStore("photos"); }; r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); return this._db; },
+  async tx(mode,fn){ const db=await this.open(); return new Promise((res,rej)=>{ const t=db.transaction("photos",mode), s=t.objectStore("photos"); const out=fn(s); t.oncomplete=()=>res(out instanceof IDBRequest ? out.result : out); t.onerror=()=>rej(t.error); t.onabort=()=>rej(t.error); }); },
+  async put(blob){ const id="p"+Date.now().toString(36)+Math.random().toString(36).slice(2,7); await this.tx("readwrite",s=>s.put(blob,id)); return id; },
+  async get(id){ return this.tx("readonly",s=>s.get(id)); },
+  async del(id){ await this.tx("readwrite",s=>s.delete(id)); urlCache.delete(id); },
+  async has(id){ return !!(await this.get(id)); },
+  async url(id){ if(urlCache.has(id)) return urlCache.get(id); const b=await this.get(id); if(!b) return null; const u=URL.createObjectURL(b); urlCache.set(id,u); return u; },
+  async usage(){ let n=0,bytes=0; await this.tx("readonly",s=>{ const c=s.openCursor(); c.onsuccess=()=>{ const cur=c.result; if(cur){ n++; bytes+=cur.value.size||0; cur.continue(); } }; return c; }); return {n,bytes}; },
+  canAdd:true
+};
+const urlCache=new Map();
+let photos = idbPhotos;
+function assetPhotos(assets){
+  return {
+    async put(blob){ const r=await assets.upload(blob,{type:"image/jpeg"}); return r.id; },
+    async get(id){ const r=await fetch("/_blob/"+id); if(!r.ok) return null; return r.blob(); },
+    async del(id){ try{ await assets.delete(id); }catch(e){} },
+    async has(id){ try{ const r=await fetch("/_blob/"+id,{method:"HEAD"}); return r.ok; }catch(e){ return false; } },
+    async url(id){ return "/_blob/"+id; },
+    async usage(){ try{ const l=await assets.list(); return {n:l.usage.files,bytes:l.usage.bytes}; }catch(e){ return null; } },
+    canAdd:!!assets
+  };
+}
+async function shrink(file){
+  let src;
+  try{ src=await createImageBitmap(file,{imageOrientation:"from-image"}); }
+  catch(e){ src=await new Promise((res,rej)=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=rej; im.src=URL.createObjectURL(file); }); }
+  const w=src.width, h=src.height, k=Math.min(1,1600/Math.max(w,h));
+  const c=document.createElement("canvas"); c.width=Math.round(w*k); c.height=Math.round(h*k);
+  c.getContext("2d").drawImage(src,0,0,c.width,c.height);
+  return new Promise(res=>c.toBlob(b=>res(b),"image/jpeg",0.75));
+}
+const receiptsOf = d => Array.isArray(rec(d).receipts) ? rec(d).receipts : [];
+async function addReceipts(files){
+  const date=sel, list=[...files].filter(f=>/^image\//.test(f.type)||/\.(jpe?g|png|heic|webp)$/i.test(f.name));
+  if(!list.length){ toast("Choose a photo"); return; }
+  rBusy=true; renderReceipts();
+  let ok=0;
+  for(const f of list){
+    try{ const blob=await shrink(f); const id=await photos.put(blob); const r=[...receiptsOf(date),{id,label:"",at:new Date().toISOString()}]; touchDay(date,{receipts:r}); ok++; }
+    catch(e){ toast("Couldn't save that photo. Try a different one."); }
+  }
+  rBusy=false; if(ok) toast(ok===1?"Receipt saved":`${ok} receipts saved`);
+  if(date===sel) renderToday(); else renderReceipts();
+}
+let rBusy=false;
+const PLUS_CAM='<svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+function thumb(r, date, i){
+  const b=document.createElement("button"); b.type="button"; b.className="rthumb"; b.setAttribute("aria-label","Open receipt"+(r.label?": "+r.label:""));
+  const img=document.createElement("img"); img.alt=""; img.loading="lazy"; b.appendChild(img);
+  if(r.label){ const l=document.createElement("span"); l.className="lbl"; l.textContent=r.label; b.appendChild(l); }
+  b.onclick=()=>openViewer(date,i);
+  photos.url(r.id).then(u=>{ if(u) img.src=u; else { img.remove(); b.insertAdjacentHTML("afterbegin",'<span class="small" style="display:grid;place-items:center;height:100%;padding:6px;text-align:center">Photo not on this device</span>'); } }).catch(()=>{});
+  return b;
+}
+function renderReceipts(){
+  const g=$("rgrid"); if(!g) return; const list=receiptsOf(sel);
+  $("rCount").textContent = list.length ? `${list.length} photo${list.length===1?"":"s"}` : "";
+  g.innerHTML="";
+  for(let i=0;i<list.length;i++) g.appendChild(thumb(list[i],sel,i));
+  if(photos.canAdd){
+    const a=document.createElement("label"); a.className="radd"+(rBusy?" busy":""); a.htmlFor="rFile";
+    a.innerHTML = rBusy ? "Saving…" : PLUS_CAM+"<span>Add photo</span>";
+    g.appendChild(a);
+  }
+  $("rNote").hidden = !list.length;
+  if(!photos.canAdd && !list.length){ g.innerHTML='<p class="small">Open this page signed in to Claude to add receipt photos.</p>'; }
+}
+$("rFile").addEventListener("change",e=>{ const f=e.target.files; if(f&&f.length) addReceipts(f); e.target.value=""; });
+
+// viewer
+let vDate=null, vIdx=0, vSure=false;
+async function openViewer(date,i){ flushFields(); vDate=date; vIdx=i; vSure=false; $("viewer").hidden=false; await showViewer(); $("vClose").focus(); }
+async function showViewer(){
+  const list=receiptsOf(vDate); if(!list.length){ closeViewer(); return; }
+  vIdx=Math.max(0,Math.min(vIdx,list.length-1)); const r=list[vIdx];
+  $("vTitle").textContent = fShort.format(parse(vDate))+" · "+(vIdx+1)+" of "+list.length;
+  $("vImg").removeAttribute("src"); const u=await photos.url(r.id); if(u) $("vImg").src=u;
+  $("vLabel").value=r.label||""; $("vDel").textContent="Delete photo"; vSure=false;
+  $("vPrev").disabled=vIdx===0; $("vNext").disabled=vIdx===list.length-1;
+}
+function closeViewer(){ $("viewer").hidden=true; vDate=null; if(view==="today") renderReceipts(); else render(); }
+$("vClose").onclick=closeViewer;
+$("vPrev").onclick=()=>{ vIdx--; showViewer(); };
+$("vNext").onclick=()=>{ vIdx++; showViewer(); };
+$("vLabel").addEventListener("change",()=>{ if(!vDate) return; const list=receiptsOf(vDate).map((r,i)=>i===vIdx?{...r,label:$("vLabel").value.trim()}:r); touchDay(vDate,{receipts:list}); toast("Label saved"); });
+$("vDel").onclick=async()=>{
+  if(!vSure){ vSure=true; $("vDel").textContent="Tap again to delete"; return; }
+  const list=receiptsOf(vDate), r=list[vIdx]; if(!r) return;
+  touchDay(vDate,{receipts:list.filter((_,i)=>i!==vIdx)}); try{ await photos.del(r.id); }catch(e){}
+  toast("Photo deleted"); if(list.length<=1) closeViewer(); else showViewer();
+};
+document.addEventListener("keydown",e=>{
+  if($("viewer").hidden) return;
+  if(e.key==="Escape"){ closeViewer(); return; }
+  if((e.key==="ArrowLeft"||e.key==="ArrowRight") && document.activeElement!==$("vLabel")){
+    e.stopImmediatePropagation(); e.preventDefault();
+    if(e.key==="ArrowLeft"&&vIdx>0){ vIdx--; showViewer(); }
+    if(e.key==="ArrowRight"&&vIdx<receiptsOf(vDate).length-1){ vIdx++; showViewer(); }
+  }
+},true);
+
+// ---------- Swipe & arrow-key navigation ----------
+function slide(dir){ // dir: 1 = forward (content comes from the right), -1 = back
+  const v=$("v-"+view); if(!v) return;
+  v.classList.remove("from-right","from-left"); void v.offsetWidth;
+  v.classList.add(dir>0?"from-right":"from-left");
+}
+function step(dir){
+  flushFields();
+  if(view==="today"){ sel=addDays(sel,dir); renderToday(); $("screenTitle").textContent = sel===today?"Today":fShort.format(parse(sel)); }
+  else if(view==="calendar"){ calMonth=new Date(calMonth.getFullYear(),calMonth.getMonth()+dir,1); renderCal(); }
+  else if(view==="progress"){ progMonth=new Date(progMonth.getFullYear(),progMonth.getMonth()+dir,1); renderProgress(); }
+  else return;
+  slide(dir);
+}
+(function(){
+  let sx=0, sy=0, st=0, tracking=false;
+  const skip = el => el && el.closest && el.closest("input,textarea,select,[contenteditable],.tabbar");
+  const main=document.querySelector("main");
+  main.addEventListener("touchstart",e=>{
+    if(e.touches.length!==1 || skip(e.target)){ tracking=false; return; }
+    tracking=true; sx=e.touches[0].clientX; sy=e.touches[0].clientY; st=Date.now();
+  },{passive:true});
+  main.addEventListener("touchend",e=>{
+    if(!tracking) return; tracking=false;
+    const t=e.changedTouches[0], dx=t.clientX-sx, dy=t.clientY-sy;
+    if(Date.now()-st>800) return;
+    if(Math.abs(dx)<60 || Math.abs(dx)<Math.abs(dy)*1.6) return;
+    if(sx<20 || sx>window.innerWidth-20) return;   // leave screen-edge swipes to the phone's back gesture
+    step(dx<0?1:-1);
+    try{ localStorage.setItem("farm-journal-swiped","1"); }catch(err){}
+    $("swipeHint").hidden=true;
+  },{passive:true});
+  main.addEventListener("touchcancel",()=>{ tracking=false; },{passive:true});
+  document.addEventListener("keydown",e=>{
+    const a=document.activeElement;
+    if(e.altKey||e.ctrlKey||e.metaKey||(a&&a.closest&&a.closest("input,textarea,select,[contenteditable]"))) return;
+    if(e.key==="ArrowLeft"){ step(-1); e.preventDefault(); }
+    else if(e.key==="ArrowRight"){ step(1); e.preventDefault(); }
+  });
+  try{ if(localStorage.getItem("farm-journal-swiped")) $("swipeHint").hidden=true; }catch(err){}
+  if(!("ontouchstart" in window)) $("swipeHint").textContent="Use the ← → arrow keys or the week arrows to change the day";
+})();
 
 // ---------- Render ----------
 function render(){
   if(view==="today") renderToday();
   else if(view==="calendar") renderCal();
-  else if(view==="progress") renderProgress();
+  else if(view==="progress"){ renderProgress(); renderFsa(); }
   else if(view==="notes") renderNotes();
-  else if(view==="more"){ renderEditor(); renderPlanList(); }
+  else if(view==="more"){ renderEditor(); renderSupplies(); renderPlanList(); updateUsage(); }
+}
+async function updateUsage(){
+  try{ const u=await photos.usage(); if(!u) return;
+    let p=$("usageLine"); if(!p){ p=document.createElement("p"); p.id="usageLine"; p.className="small"; p.style.marginTop="8px"; $("aboutSave").after(p); }
+    p.textContent = u.n ? `Receipt photos: ${u.n}, using ${u.bytes<1048576?Math.max(1,Math.round(u.bytes/1024))+" KB":(u.bytes/1048576).toFixed(1)+" MB"}.` : "No receipt photos yet.";
+  }catch(e){}
 }
 function setSync(ok,txt,about){ $("sync").className="sync"+(ok?" ok":""); $("syncTxt").textContent=txt; $("aboutSave").textContent=about; }
 
 // ---------- Boot ----------
 (function(){
   const saved=lsRead();
-  if(saved){ days=saved.days||{}; if(Array.isArray(saved.items)&&saved.items.length) items=saved.items; }
+  if(saved){ days=saved.days||{}; if(Array.isArray(saved.items)&&saved.items.length) items=saved.items; if(Array.isArray(saved.inv)&&saved.inv.length) inv=saved.inv; }
+  try{ if(!localStorage.getItem("fj-birds-nov3")){ let ch=false; items.forEach(it=>{ if(["feed","eggs","health"].includes(it.id) && it.from==="2026-10-07"){ it.from="2026-11-03"; ch=true; } }); if(ch&&saved) lsWrite(); localStorage.setItem("fj-birds-nov3","1"); } }catch(e){}
   DEFAULT_ITEMS.forEach(d=>{ if(!items.some(it=>it.id===d.id)) items.push({...d}); });
   if(APP) migrateLocal();
   store=localStore;
@@ -943,9 +1602,13 @@ function setSync(ok,txt,about){ $("sync").className="sync"+(ok?" ok":""); $("syn
   if(APP) return;
   let db=null; try{ db=window.claude&&window.claude.use?await window.claude.use("db"):null; }catch(e){ db=null; }
   if(!db){ setSync(false,"This browser","Saving in this browser only. Open this page from your Claude account to save to your account."); return; }
+  let assets=null; try{ assets=await window.claude.use("assets"); }catch(e){ assets=null; }
+  photos = assetPhotos(assets); if(view==="today") renderReceipts();
   const col=db.collection("days"), cfg=db.doc("settings/checklist");
   const strip=o=>JSON.parse(JSON.stringify(o));
-  store={ async saveDay(date){ await col.doc(date).set(strip(days[date])); }, async saveItems(){ await cfg.set({items:strip(items),updatedAt:new Date().toISOString()}); } };
+  const invDoc=db.doc("settings/inventory");
+  store={ async saveDay(date){ await col.doc(date).set(strip(days[date])); }, async saveItems(){ await cfg.set({items:strip(items),updatedAt:new Date().toISOString()}); }, async saveInv(){ await invDoc.set({items:strip(inv),updatedAt:new Date().toISOString()}); } };
+  invDoc.onSnapshot(s=>{ const v=s.exists?s.data():null; if(v&&Array.isArray(v.items)&&v.items.length&&!(q.inv&&q.inv.running)){ inv=v.items.map(x=>({...x})); if(view!=="more"||!document.activeElement||!document.activeElement.closest("#suppliesCard")) render(); } },()=>{});
   setSync(true,"Synced","Your journal saves to your Claude account and syncs across your devices. Ask Claude to fill in a day, change your checklist, or summarize a month; it works from the same records.");
   col.onSnapshot(snap=>{
     const next={};
